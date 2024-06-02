@@ -1,0 +1,13 @@
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/com/mycompany/pooiiweb/i/resources/UsuarioResource.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/modelo/dao/UsuarioDao.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/controller/UsuarioController.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Model/entity/Medida.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Model/entity/Usuario.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Model/entity/Cliente.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Test/UsuarioTest.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Red/Test.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/modelo/dao/UsuarioServices.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Model/entity/Suscripcion.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/com/mycompany/pooiiweb/i/resources/CorsFilter.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/Red/BaseDeDatos.java
+/home/red-iso/Descargas/pooIIweb-2024-I/pooIIweb-2024-I/pooIIweb-2024-I/src/main/java/com/mycompany/pooiiweb/i/JakartaRestConfiguration.java

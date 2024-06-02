@@ -1,0 +1,13 @@
+Red/BaseDeDatos.class
+com/mycompany/pooiiweb/i/JakartaRestConfiguration.class
+Red/Test.class
+Test/UsuarioTest.class
+Model/entity/Medida.class
+Model/entity/Cliente.class
+com/mycompany/pooiiweb/i/resources/UsuarioResource.class
+controller/UsuarioController.class
+com/mycompany/pooiiweb/i/resources/CorsFilter.class
+modelo/dao/UsuarioDao.class
+modelo/dao/UsuarioServices.class
+Model/entity/Suscripcion.class
+Model/entity/Usuario.class
