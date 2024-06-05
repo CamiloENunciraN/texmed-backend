@@ -28,4 +28,7 @@ public class MedidaController {
     public int actualizar(Medida medida){
         return md.actualizar(medida);
     }
+    public int actualizarVisualizacion(Medida medida){
+        return md.actualizarVisualizacion(medida);
+    }
 }

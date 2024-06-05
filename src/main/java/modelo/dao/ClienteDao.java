@@ -23,7 +23,7 @@ public class ClienteDao implements ClienteServices{
     private final String SQL_LISTADOCLIENTES = "SELECT * FROM Cliente WHERE id_usuario = ? ";
     private final String SQL_ACTUALIZAR = "UPDATE Cliente SET nombre = ?, celular = ?, direccion = ? WHERE id = ?";
     private final String SQL_INSERTAR = "INSERT INTO Cliente (nombre, celular, direccion ) VALUES(?, ?, ?)";
-    private final String SQL_CONSULTACLIENTESPORNOMBRE = "SELECT * FROM Cliente WHERE  nombre LIKE ?";
+    private final String SQL_CONSULTACLIENTESPORNOMBRE = "SELECT * FROM Cliente WHERE id_usuario = ? AND  nombre LIKE ?";
     
     @Override
     public List<Cliente> consultarPorNombre(Cliente c) {
@@ -36,7 +36,8 @@ public class ClienteDao implements ClienteServices{
         try {
             connection = bd.getConnection();
             stm = connection.prepareStatement(SQL_CONSULTACLIENTESPORNOMBRE);
-            stm.setString(1, "%"+c.getNombre()+"%");
+            stm.setInt(1, c.getId_usuario());
+            stm.setString(2, "%"+c.getNombre()+"%");
             resultado = stm.executeQuery();
             while (resultado.next()) {
                 int id = resultado.getInt("id");

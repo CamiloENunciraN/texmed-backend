@@ -62,8 +62,8 @@ public class SuscripcionDao implements SuscripcionServices {
             connection = bd.getConnection();
             stm = connection.prepareStatement(SQL_INSERTAR,  Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, suscripcion.getTipo());
-            stm.setDate(2, (Date) suscripcion.getFecha_inicio());
-            stm.setDate(3, (Date) suscripcion.getFecha_fin());
+            stm.setDate(2, suscripcion.getFecha_inicio());
+            stm.setDate(3, suscripcion.getFecha_fin());
             registro = stm.executeUpdate();
             
             ResultSet generatedKeys = stm.getGeneratedKeys();

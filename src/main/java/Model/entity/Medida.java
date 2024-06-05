@@ -1,7 +1,7 @@
 
 package Model.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -36,6 +36,10 @@ public class Medida {
     private String tipo_cinturon;
 
     public Medida() {
+    }
+
+    public Medida(int id) {
+        this.id = id;
     }
 
     public Medida(int id, Cliente cliente, String tipo_prenda) {

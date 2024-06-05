@@ -21,10 +21,11 @@ import java.util.logging.Logger;
  */
 public class MedidaDao implements MedidaServices{
     private final String SQL_CONSULTAID = "SELECT * FROM Medida m, Cliente c WHERE m.id_cliente = c.id AND m.id = ?";
-    private final String SQL_CONSULTARECIENTES = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c ORDER BY fecha_creacion DESC LIMIT 5"; 
-    private final String SQL_CONSULTAVISUALIZADAS = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c ORDER BY fecha_visualizacion DESC LIMIT 5"; 
+    private final String SQL_CONSULTARECIENTES = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE c.id_usuario = ? ORDER BY fecha_creacion DESC LIMIT 5"; 
+    private final String SQL_CONSULTAVISUALIZADAS = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE c.id_usuario = ? ORDER BY fecha_visualizacion DESC LIMIT 5"; 
     private final String SQL_INSERTAR = "INSERT INTO Medida(tipo_prenda, unidades, fecha_creacion, fecha_visualizacion, id_cliente, anotaciones, cuello, hombro, pecho, ancho_espalda, largo_manga, puno, largo_total, cintura, codo, entrepierna, rodilla, cadera, ancho_pierna, tipo_bolsilo, tipo_manga, tipo_cuello, tipo_botones, tipo_pretina, tipo_cinturon) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String SQL_ACTUALIZAR = "UPDATE Medida SET tipo_prenda = ?,unidades = ?, fecha_creacion = ?, fecha_visualizacion = ? ,id_cliente = ?,anotaciones = ? , cuello = ?, hombro = ?, pecho = ?, ancho_espalda = ?,largo_manga = ?,puno = ?, largo_total = ?, cintura = ?, codo = ?, entrepierna = ?, rodilla = ?, cadera = ?,ancho_pierna = ?,tipo_bolsilo = ?, tipo_manga = ?, tipo_cuello = ?, tipo_botones = ?, tipo_pretina = ?, tipo_cinturon = ? WHERE id = ?";
+    private final String SQL_ACTUALIZARVISUALIZACION = "UPDATE Medida SET fecha_visualizacion = ? WHERE id = ?";
     
     @Override
     public Medida consultarPorId(Medida medida) {
@@ -54,13 +55,13 @@ public class MedidaDao implements MedidaServices{
             Float ancho_espalda = resultado.getFloat("ancho_espalda");
             Float largo_manga = resultado.getFloat("largo_manga");
             Float puno = resultado.getFloat("puno");
-            Float largo_total = resultado.getFloat("puno");
-            Float cintura = resultado.getFloat("puno");
-            Float codo = resultado.getFloat("puno");
-            Float entrepierna = resultado.getFloat("puno");
-            Float rodilla = resultado.getFloat("puno");
-            Float cadera = resultado.getFloat("puno");
-            Float ancho_pierna = resultado.getFloat("puno");
+            Float largo_total = resultado.getFloat("largo_total");
+            Float cintura = resultado.getFloat("cintura");
+            Float codo = resultado.getFloat("codo");
+            Float entrepierna = resultado.getFloat("entrepierna");
+            Float rodilla = resultado.getFloat("rodilla");
+            Float cadera = resultado.getFloat("cadera");
+            Float ancho_pierna = resultado.getFloat("ancho_pierna");
             String tipo_bolsillo = resultado.getString("tipo_bolsillo");
             String tipo_manga = resultado.getString("tipo_manga");
             String tipo_cuello = resultado.getString("tipo_cuello");
@@ -225,4 +226,23 @@ public class MedidaDao implements MedidaServices{
         return registro;
     }
     
+    @Override
+    public int actualizarVisualizacion(Medida medida) {
+        int registro = 0;
+        BaseDeDatos bd = null;
+        Connection connection = null;
+        PreparedStatement stm = null;
+        bd = BaseDeDatos.getInstance();
+        try {
+            connection = bd.getConnection();
+            stm = connection.prepareStatement(SQL_ACTUALIZARVISUALIZACION);
+            stm.setDate(1, medida.getFecha_visualizacion());
+            stm.setInt(2, medida.getId());
+            registro = stm.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return registro;
+    }
 }

@@ -32,6 +32,11 @@ public class Cliente {
         this.id_usuario = id_usuario;
     }
 
+    public Cliente(String nombre, int id_usuario) {
+        this.nombre = nombre;
+        this.id_usuario = id_usuario;
+    }
+
     public Cliente(String nombre) {
         this.nombre = nombre;
     }

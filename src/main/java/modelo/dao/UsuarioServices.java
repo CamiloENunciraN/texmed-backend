@@ -16,4 +16,5 @@ public interface UsuarioServices {
     public int actualizar(Usuario usuario);
     public int desactivar(Usuario usuario);
     public int cambiarClave(Usuario usuario);
+    public Usuario consultarPorIdClave(Usuario usuario);
 }

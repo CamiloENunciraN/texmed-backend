@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Statement;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +23,11 @@ public class UsuarioDao implements UsuarioServices {
     private final String SQL_CONSULTACORREOCLAVE = "SELECT u.id, s.tipo  u.estado  FROM Usuario u, Suscripcion s WHERE u.id = s.id AND u.correo = ? AND u.clave = ?";
     private final String SQL_INSERTAR = "INSERT INTO Usuario(nombre, correo, clave, tarjeta, id_suscripcion, estado) VALUES(?, ?, ?, ?, ?, ?)";
     private final String SQL_ACTUALIZAR = "UPDATE Usuario SET nombre = ?, correo = ?, tarjeta = ? WHERE id = ?";
-    private final String SQL_DESACTIVAR = "UPDATE Usuario SET estado = ? WHERE id = ?";
+    private final String SQL_DESACTIVAR = "UPDATE Usuario SET estado = false WHERE id = ? AND clave = ?";
     private final String SQL_ACTUALIZARCLAVE = "UPDATE Usuario SET clave = ? WHERE id = ?";
+    private final String SQL_CONSULTAIDCLAVE = "SELECT clave FROM Usuario WHERE id = ?";
 
+    
     @Override
     public Usuario consultarPorId(Usuario usuario) {
         Usuario nUsuario = null;
@@ -92,13 +95,14 @@ public class UsuarioDao implements UsuarioServices {
     @Override
     public int crear(Usuario usuario) {
         int registro = 0;
+        int id = 0; 
         BaseDeDatos bd = null;
         Connection connection = null;
         PreparedStatement stm = null;
         bd = BaseDeDatos.getInstance();
         try {
             connection = bd.getConnection();
-            stm = connection.prepareStatement(SQL_INSERTAR);
+            stm = connection.prepareStatement(SQL_INSERTAR,  Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, usuario.getNombre());
             stm.setString(2, usuario.getCorreo());
             stm.setString(3, usuario.getClave());
@@ -107,10 +111,15 @@ public class UsuarioDao implements UsuarioServices {
             stm.setBoolean(6, usuario.getEstado());
             registro = stm.executeUpdate();
 
+            ResultSet generatedKeys = stm.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return registro;
+        return id;
     }
 
     @Override
@@ -145,8 +154,8 @@ public class UsuarioDao implements UsuarioServices {
         try {
             connection = bd.getConnection();
             stm = connection.prepareStatement(SQL_DESACTIVAR);
-            stm.setBoolean(1, usuario.getEstado());
-            stm.setInt(2, usuario.getId());
+            stm.setInt(1, usuario.getId());
+            stm.setString(2, usuario.getClave());
             registro = stm.executeUpdate();
 
         } catch (SQLException ex) {
@@ -174,6 +183,30 @@ public class UsuarioDao implements UsuarioServices {
         }
         return registro;   
     }
+    @Override
+    public Usuario consultarPorIdClave(Usuario usuario) {
+        Usuario nUsuario = null;
+        Suscripcion nSuscripcion = null;
+        BaseDeDatos bd = null;
+        Connection connection = null;
+        PreparedStatement stm = null;
+        ResultSet resultado = null;
+        bd = BaseDeDatos.getInstance();
+        try {
+            connection = bd.getConnection();
+            stm = connection.prepareStatement(SQL_CONSULTAIDCLAVE, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            stm.setInt(1, usuario.getId());
+            resultado = stm.executeQuery();
+            resultado.absolute(1);
+            String clave = resultado.getString("clave");
 
+            nUsuario = new Usuario(clave);
+          
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nUsuario;
+    }
 
 }

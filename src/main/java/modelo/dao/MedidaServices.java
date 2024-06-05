@@ -16,4 +16,5 @@ public interface MedidaServices {
     public List<Medida> listaMedidasVIsualizadas(Usuario usuario);
     public int crear(Medida medida);
     public int actualizar(Medida medida);
+    public int actualizarVisualizacion(Medida medida);
 }

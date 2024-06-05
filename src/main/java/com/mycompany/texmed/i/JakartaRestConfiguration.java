@@ -1,7 +1,9 @@
-package com.mycompany.pooiiweb.i;
+package com.mycompany.texmed.i;
 
-import com.mycompany.pooiiweb.i.resources.CorsFilter;
-import com.mycompany.pooiiweb.i.resources.UsuarioResource;
+import com.mycompany.texmed.i.resources.ClienteResource;
+import com.mycompany.texmed.i.resources.CorsFilter;
+import com.mycompany.texmed.i.resources.MedidaResource;
+import com.mycompany.texmed.i.resources.UsuarioResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import java.util.HashSet;
@@ -18,6 +20,8 @@ public class JakartaRestConfiguration extends Application {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(CorsFilter.class);
         classes.add(UsuarioResource.class);
+        classes.add(ClienteResource.class);
+        classes.add(MedidaResource.class);
         return classes;
     }
 }

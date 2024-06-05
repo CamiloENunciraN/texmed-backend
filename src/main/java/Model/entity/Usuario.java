@@ -29,16 +29,29 @@ public class Usuario {
         this.estado = estado;
     }
 
+    public Usuario(String nombre, String correo, String clave, String tarjeta, Suscripcion suscripcion, Boolean estado) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.clave = clave;
+        this.tarjeta = tarjeta;
+        this.suscripcion = suscripcion;
+        this.estado = estado;
+    }
+
     
     //para realizar las consultas por id
     public Usuario(int id) {
         this.id = id;
     }
-    // para la consulta por clave correo login
+    // para la consulta por clave correo login y devolver registro de usuario
     public Usuario(int id, Suscripcion suscripcion, Boolean estado) {
         this.id = id;
         this.suscripcion = suscripcion;
         this.estado = estado;
+    }
+    //para cambiar la clave
+    public Usuario(String clave) {
+        this.clave = clave;
     }
 
     public int getId() {

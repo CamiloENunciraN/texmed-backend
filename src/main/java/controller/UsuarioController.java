@@ -37,4 +37,7 @@ public class UsuarioController {
         return ud.cambiarClave(usuario);
     }
     
+    public Usuario consultarPorIdClave(Usuario usuario){
+        return ud.consultarPorIdClave(usuario);
+    }
 }
