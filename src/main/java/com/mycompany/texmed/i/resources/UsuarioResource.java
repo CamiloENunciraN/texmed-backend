@@ -38,6 +38,16 @@ public class UsuarioResource {
                 .build();
     }
     
+    @GET
+    @Path("/usuario/{id}")
+    public Response buscarUsuario(@PathParam("id") int id) {
+        Usuario uRes = uc.consultarPorId(new Usuario(id));
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(uRes)
+                    .build();
+    }
+    
     @POST //recibe {nombre, correo, clave, tarjeta} devuelve {id, suscripcion, estado}
     @Path("/usuario/registrarse")
     @Produces(MediaType.APPLICATION_JSON)
@@ -144,88 +154,5 @@ public class UsuarioResource {
                     .build();
         }
     }
-/*
 
-    @GET
-    @Path("/usuarios")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuarios() {
-        List<Usuario> usuarios = new ArrayList();
-        usuarios = uc.consultar();
-        System.out.println("mm" + usuarios);
-        return Response
-                .status(200)
-                .entity(usuarios)
-                .build();
-    }
-
-    @GET
-    @Path("/usuario/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuarioId(@PathParam("id") String id) {
-        Usuario usuario = new Usuario(id);
-        Usuario usuarioR = uc.consultarId(usuario);
-        return Response
-                .status(200)
-                .entity(usuarioR)
-                .build();
-
-    }
-
-    @POST
-    @Path("/usuarios")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response crear(Usuario usuario) {
-        try {
-            uc.crear(usuario);
-            return Response
-                    .status(Response.Status.CREATED)
-                    .entity(usuario)
-                    .build();
-        } catch (Exception ex) {
-            return Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(ex.getMessage())
-                    .build();
-        }
-
-    }
-
-    @DELETE
-    @Path("/usuario/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response borrar(@PathParam("id") String id) {
-        Usuario usuario = new Usuario(id);
-        int i = uc.borrar(usuario);
-        if (i == 0) {
-            return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("no encontro el destino")
-                    .build();
-        } else {
-            return Response
-                    .ok("Correcto")
-                    .build();
-        }
-    }
-
-    @PUT
-    @Path("/usuario")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response editar(Usuario usuario) {
-        try {
-            uc.actualizar(usuario);
-            return Response
-                    .status(Response.Status.CREATED)
-                    .entity(usuario)
-                    .build();
-        } catch (Exception ex) {
-            return Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(ex.getMessage())
-                    .build();
-        }
-
-    }
-*/
 }

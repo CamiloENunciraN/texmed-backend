@@ -1,10 +1,13 @@
 
 package com.mycompany.texmed.i.resources;
 
+import Model.entity.Cliente;
 import Model.entity.Medida;
 import Model.entity.Usuario;
+import controller.ClienteController;
 import controller.MedidaController;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -23,6 +26,7 @@ import java.util.List;
 public class MedidaResource {
     
     MedidaController mc = new MedidaController();
+    ClienteController cc = new ClienteController();
     
     @GET  //recibe {id} devuelve {la 5 medidas recientes por fecha del usuario id}
     @Path("/medida/listado/recientes/{id}")
@@ -85,6 +89,45 @@ public class MedidaResource {
 
     }
     
-    //crear
-    //actuaizar
+    @POST //recibe {medida[cliente]} devuelve {msg}
+    @Path("/medida/registrar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registrarMedida(Medida medida) {
+        try {
+            Date d = Date.valueOf(LocalDate.now());
+            int id_cliente = cc.crear(medida.getCliente());
+            medida.getCliente().setId(id_cliente);
+            medida.setFecha_creacion(d);
+            mc.crear(medida);
+
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity("Medida creada exitosamente")
+                    .build();
+        } catch (Exception ex) {
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ex.getMessage())
+                    .build();
+        }
+    }
+
+    @PUT //recibe  {medida[cliente]} devuelve {msg}
+    @Path("/medida/actualizar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizar(Medida medida) {
+        try {
+            cc.actualizar(medida.getCliente());
+            mc.actualizar(medida);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity("Medida actualizada exitosamente")
+                    .build();
+        } catch (Exception ex) {
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ex.getMessage())
+                    .build();
+        }
+    }
 }
