@@ -60,6 +60,15 @@ public class UsuarioDao implements UsuarioServices {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return nUsuario;
     }
     
@@ -88,6 +97,15 @@ public class UsuarioDao implements UsuarioServices {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return nUsuario;
     }
@@ -119,6 +137,14 @@ public class UsuarioDao implements UsuarioServices {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return id;
     }
 
@@ -141,6 +167,14 @@ public class UsuarioDao implements UsuarioServices {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return registro;
     }
     
@@ -161,6 +195,14 @@ public class UsuarioDao implements UsuarioServices {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return registro;
     }
 
@@ -180,6 +222,14 @@ public class UsuarioDao implements UsuarioServices {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return registro;   
     }
@@ -205,6 +255,15 @@ public class UsuarioDao implements UsuarioServices {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return nUsuario;
     }

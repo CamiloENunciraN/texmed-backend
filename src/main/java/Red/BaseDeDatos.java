@@ -2,7 +2,10 @@
 package Red;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 /**
@@ -34,8 +37,21 @@ public class BaseDeDatos {
     }
 
     public Connection getConnection() throws SQLException {
-        //Class.forName("com.mysql.jdbc.Driver");
         return bds.getConnection();
     }
+public static void close(Connection con) throws SQLException{
+    con.close();
+}
 
+public static void close(Statement stm) throws SQLException{
+    stm.close();
+}
+
+public static void close(PreparedStatement stm) throws SQLException{
+    stm.close();
+}
+
+public static void close(ResultSet res) throws SQLException{
+    res.close();
+}
 }

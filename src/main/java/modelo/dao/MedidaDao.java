@@ -82,6 +82,15 @@ public class MedidaDao implements MedidaServices{
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return nMedida;
     }
 
@@ -109,6 +118,15 @@ public class MedidaDao implements MedidaServices{
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return medidas;
     }
 
@@ -135,6 +153,15 @@ public class MedidaDao implements MedidaServices{
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return medidas;
     }
@@ -180,6 +207,14 @@ public class MedidaDao implements MedidaServices{
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return registro;
     }
 
@@ -223,6 +258,14 @@ public class MedidaDao implements MedidaServices{
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return registro;
     }
     
@@ -242,6 +285,14 @@ public class MedidaDao implements MedidaServices{
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return registro;
     }

@@ -17,12 +17,12 @@ public class Test {
         try{
         BaseDeDatos bd = BaseDeDatos.getInstance();
         Connection connection = bd.getConnection();
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM Usuario";
         PreparedStatement stm = connection.prepareStatement(sql);
         ResultSet resultado = stm.executeQuery();
         while(resultado.next()){
             System.out.println("Nombre: " + resultado.getString("nombre"));
-            System.out.println("Apellido: " + resultado.getString("apellido"));
+            System.out.println("Correo: " + resultado.getString("correo"));
 
         }
     } catch (SQLException ex){
