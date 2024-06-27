@@ -39,19 +39,19 @@ public class BaseDeDatos {
     public Connection getConnection() throws SQLException {
         return bds.getConnection();
     }
-public static void close(Connection con) throws SQLException{
-    con.close();
-}
+    public static void close(Connection con) throws SQLException{
+        con.close();
+    }
 
-public static void close(Statement stm) throws SQLException{
-    stm.close();
-}
+    public static void close(Statement stm) throws SQLException{
+        stm.close();
+    }
 
-public static void close(PreparedStatement stm) throws SQLException{
-    stm.close();
-}
+    public static void close(PreparedStatement stm) throws SQLException{
+        stm.close();
+    }
 
-public static void close(ResultSet res) throws SQLException{
-    res.close();
-}
+    public static void close(ResultSet res) throws SQLException{
+        res.close();
+    }
 }

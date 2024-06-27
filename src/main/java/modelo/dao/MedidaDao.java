@@ -21,8 +21,8 @@ import java.util.logging.Logger;
  */
 public class MedidaDao implements MedidaServices{
     private final String SQL_CONSULTAID = "SELECT * FROM Medida m, Cliente c WHERE m.id_cliente = c.id AND m.id = ?";
-    private final String SQL_CONSULTARECIENTES = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE c.id_usuario = ? ORDER BY fecha_creacion DESC LIMIT 5"; 
-    private final String SQL_CONSULTAVISUALIZADAS = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE c.id_usuario = ? ORDER BY fecha_visualizacion DESC LIMIT 5"; 
+    private final String SQL_CONSULTARECIENTES = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE m.id_cliente = c.id AND c.id_usuario = ? ORDER BY fecha_creacion DESC LIMIT 5"; 
+    private final String SQL_CONSULTAVISUALIZADAS = "SELECT m.id, m.tipo_prenda, c.nombre FROM Medida m, Cliente c WHERE m.id_cliente = c.id AND c.id_usuario = ? ORDER BY fecha_visualizacion DESC LIMIT 5"; 
     private final String SQL_INSERTAR = "INSERT INTO Medida(tipo_prenda, unidades, fecha_creacion, fecha_visualizacion, id_cliente, anotaciones, cuello, hombro, pecho, ancho_espalda, largo_manga, puno, largo_total, cintura, codo, entrepierna, rodilla, cadera, ancho_pierna, tipo_bolsilo, tipo_manga, tipo_cuello, tipo_botones, tipo_pretina, tipo_cinturon) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String SQL_ACTUALIZAR = "UPDATE Medida SET tipo_prenda = ?,unidades = ?, fecha_creacion = ?, fecha_visualizacion = ? ,id_cliente = ?,anotaciones = ? , cuello = ?, hombro = ?, pecho = ?, ancho_espalda = ?,largo_manga = ?,puno = ?, largo_total = ?, cintura = ?, codo = ?, entrepierna = ?, rodilla = ?, cadera = ?,ancho_pierna = ?,tipo_bolsilo = ?, tipo_manga = ?, tipo_cuello = ?, tipo_botones = ?, tipo_pretina = ?, tipo_cinturon = ? WHERE id = ?";
     private final String SQL_ACTUALIZARVISUALIZACION = "UPDATE Medida SET fecha_visualizacion = ? WHERE id = ?";
@@ -70,7 +70,7 @@ public class MedidaDao implements MedidaServices{
             String tipo_cinturon = resultado.getString("tipo_cinturon");
             
             int id_cliente = resultado.getInt("id_cliente");
-            String nombre_cliente = resultado.getString("nombre_cliente");
+            String nombre_cliente = resultado.getString("nombre");
             String celular = resultado.getString("celular");
             String direccion = resultado.getString("direccion");
             

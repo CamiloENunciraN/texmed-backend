@@ -47,6 +47,13 @@ public class Medida {
         this.cliente = cliente;
         this.tipo_prenda = tipo_prenda;
     }
+    //para las medidas buscadas por nombre de cliente (anotaciones sera el nombre del cliente)
+    public Medida(int id, String tipo_prenda, Date fecha_creacion, String anotaciones) {
+        this.id = id;
+        this.tipo_prenda = tipo_prenda;
+        this.fecha_creacion = fecha_creacion;
+        this.anotaciones = anotaciones;
+    }
     
     // tipo camisa 
 

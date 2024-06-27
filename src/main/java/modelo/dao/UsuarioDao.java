@@ -19,9 +19,10 @@ import java.util.logging.Logger;
  */
 public class UsuarioDao implements UsuarioServices {
 
-    private final String SQL_CONSULTAID = "SELECT u.id, u.nombre, u.correo, u.tarjeta, u.estado, s.id AS id_suscripcion, s.tipo AS tipo_suscripcion, s.fecha_inicio, s.fecha_fin  FROM Usuario u, Suscripcion s WHERE u.id = s.id AND u.id = ?";
-    private final String SQL_CONSULTACORREOCLAVE = "SELECT u.id, s.tipo  u.estado  FROM Usuario u, Suscripcion s WHERE u.id = s.id AND u.correo = ? AND u.clave = ?";
-    private final String SQL_INSERTAR = "INSERT INTO Usuario(nombre, correo, clave, tarjeta, id_suscripcion, estado) VALUES(?, ?, ?, ?, ?, ?)";
+    private final String SQL_CONSULTAID = "SELECT u.id, u.nombre, u.correo, u.tarjeta, u.estado, s.id AS id_suscripcion, s.tipo AS tipo_suscripcion, s.fecha_inicio, s.fecha_fin  FROM Usuario u, Suscripcion s WHERE u.id_suscripcion = s.id AND u.id = ?";
+    private final String SQL_CONSULTACORREOCLAVE = "SELECT u.id, s.tipo,  u.estado  FROM Usuario u, Suscripcion s WHERE u.id_suscripcion = s.id AND u.correo = ? AND u.clave = ?";
+    private final String SQL_CONSULTACORREO = "SELECT id  FROM Usuario WHERE correo = ?";
+    private final String SQL_INSERTAR = "INSERT INTO Usuario(correo, clave, id_suscripcion, estado) VALUES( ?, ?, ?, ?)";
     private final String SQL_ACTUALIZAR = "UPDATE Usuario SET nombre = ?, correo = ?, tarjeta = ? WHERE id = ?";
     private final String SQL_DESACTIVAR = "UPDATE Usuario SET estado = false WHERE id = ? AND clave = ?";
     private final String SQL_ACTUALIZARCLAVE = "UPDATE Usuario SET clave = ? WHERE id = ?";
@@ -110,6 +111,39 @@ public class UsuarioDao implements UsuarioServices {
         return nUsuario;
     }
 
+    
+    @Override
+    public int consultarPorCorreo(Usuario usuario) {
+        int id = 0;
+        BaseDeDatos bd = null;
+        Connection connection = null;
+        PreparedStatement stm = null;
+        ResultSet resultado = null;
+        bd = BaseDeDatos.getInstance();
+        try {
+            connection = bd.getConnection();
+            stm = connection.prepareStatement(SQL_CONSULTACORREO, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            stm.setString(1, usuario.getCorreo());
+            resultado = stm.executeQuery();
+            resultado.absolute(1);
+            id = resultado.getInt("id");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                BaseDeDatos.close(resultado);
+                BaseDeDatos.close(stm);
+                BaseDeDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return id;
+    }
+    
+    
     @Override
     public int crear(Usuario usuario) {
         int registro = 0;
@@ -121,12 +155,10 @@ public class UsuarioDao implements UsuarioServices {
         try {
             connection = bd.getConnection();
             stm = connection.prepareStatement(SQL_INSERTAR,  Statement.RETURN_GENERATED_KEYS);
-            stm.setString(1, usuario.getNombre());
-            stm.setString(2, usuario.getCorreo());
-            stm.setString(3, usuario.getClave());
-            stm.setString(4, usuario.getTarjeta());
-            stm.setInt(5, usuario.getSuscripcion().getId());
-            stm.setBoolean(6, usuario.getEstado());
+            stm.setString(1, usuario.getCorreo());
+            stm.setString(2, usuario.getClave());
+            stm.setInt(3, usuario.getSuscripcion().getId());
+            stm.setBoolean(4, usuario.getEstado());
             registro = stm.executeUpdate();
 
             ResultSet generatedKeys = stm.getGeneratedKeys();

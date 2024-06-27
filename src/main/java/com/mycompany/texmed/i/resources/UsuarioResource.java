@@ -43,16 +43,23 @@ public class UsuarioResource {
     public Response buscarUsuario(@PathParam("id") int id) {
         Usuario uRes = uc.consultarPorId(new Usuario(id));
             return Response
-                    .status(Response.Status.CREATED)
+                    .status(Response.Status.FOUND)
                     .entity(uRes)
                     .build();
     }
     
-    @POST //recibe {nombre, correo, clave, tarjeta} devuelve {id, suscripcion, estado}
+    @POST //recibe {correo, clave} devuelve {id, suscripcion, estado}
     @Path("/usuario/registrarse")
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarse(Usuario usuario) {
         try {
+            int id = uc.consultarPorCorreo(usuario);
+            if(id != 0){
+                return Response
+                    .status(Response.Status.CREATED)
+                    .entity("Usuario ya registrado")
+                    .build();
+            }
             Date d = Date.valueOf(LocalDate.now());
             Suscripcion sus = new Suscripcion("Basic", d, null );
             int id_suscripcion = sc.crear(sus);

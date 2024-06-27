@@ -19,11 +19,15 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String correo, String clave) {
+        this.correo = correo;
+        this.clave = clave;
+    }
+
     public Usuario(int id, String nombre, String correo, String tarjeta, Suscripcion suscripcion, Boolean estado) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
-        this.clave = clave;
         this.tarjeta = tarjeta;
         this.suscripcion = suscripcion;
         this.estado = estado;

@@ -21,6 +21,11 @@ public class UsuarioController {
         return ud.consultarPorCorreoClave(usuario);
     }
     
+    public int consultarPorCorreo(Usuario usuario){
+        return ud.consultarPorCorreo(usuario);
+    }
+    
+    
     public int crear(Usuario usuario){
         return ud.crear(usuario);
     }

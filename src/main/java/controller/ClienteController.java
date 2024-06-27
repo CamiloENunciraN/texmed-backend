@@ -2,6 +2,7 @@
 package controller;
 
 import Model.entity.Cliente;
+import Model.entity.Medida;
 import Model.entity.Usuario;
 import java.util.List;
 import modelo.dao.ClienteDao;
@@ -14,7 +15,7 @@ public class ClienteController {
         ClienteDao cd = new ClienteDao();
  
     
-    public List<Cliente> consultarPorNombre(Cliente c){
+    public List<Medida> consultarPorNombre(Cliente c){
         return cd.consultarPorNombre(c);
     }
     

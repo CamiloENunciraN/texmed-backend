@@ -2,6 +2,7 @@
 package modelo.dao;
 
 import Model.entity.Cliente;
+import Model.entity.Medida;
 import Model.entity.Usuario;
 import Red.BaseDeDatos;
 import java.sql.Connection;
@@ -23,11 +24,11 @@ public class ClienteDao implements ClienteServices{
     private final String SQL_LISTADOCLIENTES = "SELECT * FROM Cliente WHERE id_usuario = ? ";
     private final String SQL_ACTUALIZAR = "UPDATE Cliente SET nombre = ?, celular = ?, direccion = ? WHERE id = ?";
     private final String SQL_INSERTAR = "INSERT INTO Cliente (nombre, celular, direccion ) VALUES(?, ?, ?)";
-    private final String SQL_CONSULTACLIENTESPORNOMBRE = "SELECT * FROM Cliente WHERE id_usuario = ? AND  nombre LIKE ?";
+    private final String SQL_CONSULTACLIENTESPORNOMBRE = "SELECT m.id, m.tipo_prenda, c.nombre, m.fecha_creacion FROM Cliente c, Medida m WHERE c.id = m.id_cliente AND c.id_usuario = ? AND  c.nombre LIKE ?";
     
     @Override
-    public List<Cliente> consultarPorNombre(Cliente c) {
-        List<Cliente> clientes = new ArrayList<>();
+    public List<Medida> consultarPorNombre(Cliente c) {
+        List<Medida> clientes = new ArrayList<>();
         BaseDeDatos bd = null;
         Connection connection = null;
         PreparedStatement stm = null;
@@ -37,15 +38,15 @@ public class ClienteDao implements ClienteServices{
             connection = bd.getConnection();
             stm = connection.prepareStatement(SQL_CONSULTACLIENTESPORNOMBRE);
             stm.setInt(1, c.getId_usuario());
-            stm.setString(2, "%"+c.getNombre()+"%");
+            stm.setString(2, ("%"+c.getNombre()+"%"));
             resultado = stm.executeQuery();
             while (resultado.next()) {
                 int id = resultado.getInt("id");
                 String nombre = resultado.getString("nombre");
-                String celular = resultado.getString("celular");
-                String direccion = resultado.getString("direccion");
-                Cliente cliente = new Cliente(id, nombre, celular, direccion);
-                clientes.add(cliente);
+                String tipo_prenda = resultado.getString("tipo_prenda");
+                Date fecha_creacion = resultado.getDate("fecha_creacion");
+                Medida medida =new Medida (id, tipo_prenda, fecha_creacion, nombre);
+                clientes.add(medida);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
