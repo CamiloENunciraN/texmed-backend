@@ -43,7 +43,7 @@ public class UsuarioResource {
     public Response buscarUsuario(@PathParam("id") int id) {
         Usuario uRes = uc.consultarPorId(new Usuario(id));
             return Response
-                    .status(Response.Status.FOUND)
+                    .status(Response.Status.CREATED)
                     .entity(uRes)
                     .build();
     }
