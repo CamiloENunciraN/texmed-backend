@@ -4,6 +4,6 @@
          "goal": "-Pprod package -DskipTests"
      },
      "deploy": {
-     "jarName": "./target/texmed-backend-1.0-SNAPSHOT.jar"
+     "jarName": "./target/texmed-backend-1.0-SNAPSHOT.war"
      }
  }
